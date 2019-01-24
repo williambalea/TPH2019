@@ -66,18 +66,25 @@ public:
         }
         if ( ( locVertex = glGetAttribLocation( prog, "Vertex" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de Vertex" << std::endl;
         if ( ( locColor = glGetAttribLocation( prog, "Color" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de Color" << std::endl;
+        //initialisation vbo
 
         // allouer les objets OpenGL
         glGenVertexArrays( 1, &vao );
-
+        
+		glGenBuffers(1, &vboTheiereSommets);
+		glGenBuffers(1, &vboTheiereConnec);
         // initialiser le VAO pour la théière
         glBindVertexArray( vao );
 
         // (partie 2) MODIFICATIONS ICI ...
-        // créer le VBO pour les sommets
-
-        // créer le VBO la connectivité
-
+        
+        glBindBuffer (GL_ARRAY_BUFFER, vboTheiereSommets);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(gTheiereSommets), gTheiereSommets, GL_STATIC_DRAW);  
+        glVertexAttribPointer(locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, vboTheiereConnec);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gTheiereConnec), gTheiereConnec, GL_STATIC_DRAW);  
+        glEnableVertexAttribArray(locVertex);    
+		
         glBindVertexArray(0);
     }
 
@@ -93,11 +100,22 @@ public:
     {
         glBindVertexArray( vao );
         // (partie 2) MODIFICATIONS ICI ...
+        glBindBuffer(GL_ARRAY_BUFFER, vboTheiereSommets);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,vboTheiereConnec);
+        glVertexAttribPointer(locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(locVertex);
+        glDrawElements(GL_TRIANGLES,((1024+530)*3), GL_UNSIGNED_INT, 0);
+		glDisableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
         // vous pouvez utiliser temporairement cette fonction pour la première partie du TP, mais vous ferez mieux dans la seconde partie du TP
-        glBegin( GL_TRIANGLES );
-        for ( unsigned int i = 0 ; i < sizeof(gTheiereConnec)/sizeof(GLuint) ; i++ )
-            glVertex3fv( &(gTheiereSommets[3*gTheiereConnec[i]] ) );
-        glEnd( );
+        
+        //glBegin( GL_TRIANGLES );
+        //for ( unsigned int i = 0 ; i < sizeof(gTheiereConnec)/sizeof(GLuint) ; i++ )
+        //     glVertex3fv( &(gTheiereSommets[3*gTheiereConnec[i]] ) );
+           
+        // glEnd( );
+        
         glBindVertexArray(0);
     }
 
@@ -150,7 +168,13 @@ public:
                 break;
 
             case 2: // la théière
-                matrModel.Scale( 0.45, 0.45, 0.45 );
+            afficherRepereCourant( );
+				matrModel.Rotate(angleCorps, 0.0, 0.0, 1.0);
+				//matrModel.Rotate(90, 0.0, 0.0, 1.0);
+                matrModel.Translate( 0.0 + position.x, 0.0 + position.y, taille*2 + position.z); // (bidon) À MODIFIER
+                matrModel.Scale( 0.45* taille, 0.45*taille, 0.45*taille );
+                matrModel.Rotate(90, 1.0, 0.0, 0.0);
+                matrModel.Rotate(90, 0.0, 1.0, 0.0);
                 glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
                 afficherTheiere();
                 break;
