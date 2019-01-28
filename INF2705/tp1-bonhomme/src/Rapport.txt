@@ -3,7 +3,18 @@ Q1: Supposons que les coordonnées du modèle soient exprimées dans un système
     Comment devrait-on alors modifier la matrice 4x4 servant à la rotation
     afin de préserver le même effet visuel d'une rotation positive ?  Quelle
     serait la nouvelle matrice pour une rotation autour de l'axe des Z ?
-
+	
+	Si on utilise le système de coordonnées main gauche, l'axe des z est dans la direction opposée 
+	de l'autre système main droite. Cela fait en sorte que lors d'une rotation theta autour de l'axe
+	des z, le système gauche ira dans le sens opposé au système droit. Pour remédier à la situation
+	nous devons changer le signe du theta. Pour un sin(-theta), cela revient à faire -sin(theta), mais pour 
+	un cos(-theta), cela revient à faire cos(theta). Voici la matrice 4x4 de rotation positive autour 
+	de l'axe des z.
+	
+	cos(-theta)	-sin(-theta)	0	0 		=>		cos(theta)	sin(theta)	0	0
+	sin(-theta)	 cos(-theta) 	0	0				-sin(theta)	cos(theta)	0	0
+	0			0				1	0				0			0			1	0
+	0			0				0	1				0			0			0	1
 
 
 
@@ -18,4 +29,15 @@ Q2: Dans ce TP, on peut déplacer le bonhomme avec les flèches du clavier ou
     sens de son mouvement. Comment faire en sorte que la tête (et le corps)
     soit toujours dirigée dans le sens de son mouvement ?
     Décrivez (avec assez de détails) comment vous implanteriez ceci dans ce TP.
+	
+	Pour faire cela nous aurons besoin de angleCorpsHorizontal et angleCorpsVertical. 
+	En plaçant un vecteur répère à (1,0) et en ayant le vecteur position (x,z), nous 
+	pouvons calculer l'angle entre les deux en faisant :
+	
+	theta = arccos((u . v)/(||u|| ||v||))
+	
+	cet angleCorpsHorizontal sera utilisé pour dans le matrModel.Rotate du corps, de la tête, des ailes,
+	des mains et des jambes. Ensuite nous utilisons le vecteur repère (1,0) et le 
+	vecteur position (x,y) pour calculer l'angleCorpsVertical en utilisant le même principe.
+	Ces matrModel.Rotate devrons être les deux premières transformation après le matrModel.PushMatrix().
 
