@@ -3,6 +3,8 @@
 // - Dalyna PAK (1865507)
 //#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <math.h>
 #include "inf2705-matrice.h"

@@ -28,8 +28,17 @@ public:
             // matrVisu.Translate( 0., 0., -5. );
 
             matrVisu.LoadIdentity( );
-            matrVisu.Translate( 0., 0., -dist );
-            // utilisez matrVisu.Translate(), matrVisu.Rotate(), ...
+			
+			
+			
+			matrVisu.Translate(0., 0., -dist);		// on se place au milieu du cube
+			matrVisu.Rotate(-90, 0.0, 0.0, 1.0);	// on voulait placer l'axe vert en haut et l'axe rouge à droite
+			//matrVisu.Rotate(-90, 0.0, 1.0, 0.0);	// on tourne le cube axe x pour place bonhomme devant nous (deja inclus dans phi)
+			matrVisu.Rotate(-phi, 0.0, 1.0, 0.0);   // rotate axe x de la souris. phi contient deja le 90 degré pour placer le bonhomme devant nous
+			matrVisu.Rotate(-theta, 0.0, 0.0, 1.0); // rotate axe y de la souris
+			matrVisu.Translate(0., 0., -5.);		// on recule de 5 pour sortir du cube et voir tout
+
+
         }
     }
     void verifierAngles() // vérifier que les angles ne débordent pas les valeurs permises

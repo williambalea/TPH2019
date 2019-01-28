@@ -24,6 +24,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\..\openGL stuff\glad.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bonhomme.h">
@@ -56,14 +59,6 @@
     <ClInclude Include="inf2705-theiere.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="nuanceurFragmentsBase.glsl">
-      <Filter>Nuanceurs</Filter>
-    </None>
-    <None Include="nuanceurSommetsBase.glsl">
-      <Filter>Nuanceurs</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

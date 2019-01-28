@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\..\openGL stuff\glad.c" />
     <ClCompile Include="Etat.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
