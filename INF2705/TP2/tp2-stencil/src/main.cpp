@@ -1,7 +1,9 @@
 // Prénoms, noms et matricule des membres de l'équipe:
 // - Prénom1 NOM1 (matricule1)
 // - Prénom2 NOM2 (matricule2)
-#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
+//#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdlib.h>
 #include <iostream>

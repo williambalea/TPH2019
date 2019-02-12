@@ -66,25 +66,34 @@ public:
         }
         if ( ( locVertex = glGetAttribLocation( prog, "Vertex" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de Vertex" << std::endl;
         if ( ( locColor = glGetAttribLocation( prog, "Color" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de Color" << std::endl;
-        //initialisation vbo
+       
+		//Tout d'abord on crée (déja fait) le vao qui contient les deux vbo
+		//GLuint vao = 0;
+		//GLuint vboTheiereSommets = 0;
+		//GLuint vboTheiereConnec = 0;
 
-        // allouer les objets OpenGL
+		
+        // ensuite, il faut donner des numeros d'id à ces vao et vbo
         glGenVertexArrays( 1, &vao );
-        
 		glGenBuffers(1, &vboTheiereSommets);
 		glGenBuffers(1, &vboTheiereConnec);
-        // initialiser le VAO pour la théière
+
+        // on selectionne le vao auquel on veut assigner les vbo
         glBindVertexArray( vao );
 
-        // (partie 2) MODIFICATIONS ICI ...
-        
+        // on selectionne le vbo de sommets, assigne la memoire et indique le type de données
         glBindBuffer (GL_ARRAY_BUFFER, vboTheiereSommets);
         glBufferData(GL_ARRAY_BUFFER, sizeof(gTheiereSommets), gTheiereSommets, GL_STATIC_DRAW);  
         glVertexAttribPointer(locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+		// on selectionne le vbo des connections, assigne la memoire
         glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, vboTheiereConnec);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gTheiereConnec), gTheiereConnec, GL_STATIC_DRAW);  
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(gTheiereConnec), gTheiereConnec, GL_STATIC_DRAW); 
+		
+		//on active cet obj
         glEnableVertexAttribArray(locVertex);    
 		
+		//on conclue pour laisser la creation de d'autres vao
         glBindVertexArray(0);
     }
 
@@ -94,27 +103,14 @@ public:
         glDeleteBuffers( 1, &vboTheiereConnec );
     }
 
-    // (partie 2) Vous modifierez cette fonction pour utiliser les VBOs
     // affiche une théière, dont la base est centrée en (0,0,0)
     void afficherTheiere()
     {
+
         glBindVertexArray( vao );
-        // (partie 2) MODIFICATIONS ICI ...
-        glBindBuffer(GL_ARRAY_BUFFER, vboTheiereSommets);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,vboTheiereConnec);
-        glVertexAttribPointer(locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glEnableVertexAttribArray(locVertex);
-        glDrawElements(GL_TRIANGLES,((1024+530)*3), GL_UNSIGNED_INT, 0);
-		glDisableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        // vous pouvez utiliser temporairement cette fonction pour la première partie du TP, mais vous ferez mieux dans la seconde partie du TP
-        
-        //glBegin( GL_TRIANGLES );
-        //for ( unsigned int i = 0 ; i < sizeof(gTheiereConnec)/sizeof(GLuint) ; i++ )
-        //     glVertex3fv( &(gTheiereSommets[3*gTheiereConnec[i]] ) );
-           
-        // glEnd( );
+		glDrawElements(GL_TRIANGLES, sizeof(gTheiereConnec)/sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
+		// reste à savoir pourquoi glDrawElement et non glDrawArray....        
         
         glBindVertexArray(0);
     }
