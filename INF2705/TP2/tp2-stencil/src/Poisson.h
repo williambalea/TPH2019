@@ -27,7 +27,15 @@ public:
     {
         delete cylindre;
     }
-
+    void selectionne () {
+        glFinish();
+        GLint cloture[4];
+        glGetIntegerv(GL_VIEWPORT, cloture);
+        GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]-Etat::sourisPosPrec.y;
+        glReadBuffer( GL_BACK );
+        GLubyte couleur[3];
+        glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
+    }
     void afficher()
     {
         matrModel.PushMatrix();{ // sauvegarder la tranformation courante
@@ -37,7 +45,12 @@ public:
 
             // partie 2: modifs ici ...
             // donner la couleur de sélection
-
+            if(estSelectionne){
+                glFinish();
+                
+                GLint cloture[4]; glGetIntegerv(GL_VIEWPORT, cloture);
+                GLint posX = 
+            }
             // afficher le corps
             // (en utilisant le cylindre centré dans l'axe des Z, de rayon 1, entre (0,0,0) et (0,0,1))
             glm::vec3 coulCorps( 0.0, 1.0, 0.0 ); // vert
@@ -71,16 +84,19 @@ public:
 
     void avancerPhysique()
     {
+        if(!estSelectionne) {
         const float dt = 0.5; // intervalle entre chaque affichage (en secondes)
         position += dt * vitesse;
         // test rapide pour empêcher que le poisson sorte de l'aquarium
         if ( abs(position.x) > 0.9*Etat::bDim.x ) vitesse = -vitesse;
+        }
     }
 
     // les variables du poisson
     glm::vec3 position;   // en unités
     glm::vec3 vitesse;    // en unités/seconde
     float taille;         // en unités
+    bool estSelectionne = false; 
 };
 
 FormeCylindre* Poisson::cylindre = NULL;
