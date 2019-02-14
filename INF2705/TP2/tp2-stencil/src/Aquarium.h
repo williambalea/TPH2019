@@ -118,10 +118,10 @@ public:
 		// tracer le quad
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 		glBufferData( GL_ARRAY_BUFFER, sizeof(coo), coo, GL_STATIC_DRAW );
-		glVertexAttribPointer( locplanDragage, 3, GL_FLOAT, GL_FALSE, 0, 0 );
+		glVertexAttribPointer( locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0 );
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbo[1] );
         glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(connec), connec, GL_STATIC_DRAW );
-        glEnableVertexAttribArray(locplanDragage);
+        glEnableVertexAttribArray(locVertex);
         glBindVertexArray( 0 );
     }
     void conclureGraphique()
@@ -160,19 +160,25 @@ public:
         // partie 1: modifs ici ...
         
         matrModel.PushMatrix(); {
+            
 			// transformations
-			matrModel.Translate(Etat::planDragage.x, Etat::planDragage.y, Etat::planDragage.w);
-			//matrModel.Rotate();
+            matrModel.Rotate(Etat::angleDragage, 0.0, 1.0, 0.0);
+            matrModel.Translate(0.0, 0.0, Etat::planDragage.w);
+			matrModel.Scale(Etat::bDim.x, Etat::bDim.y, 1.0);
+			
+            glEnable(GL_BLEND);
+            
 			// avant de tracer, informer le gpu des chgmt fait à la matrice de modelisation
-			glUniformMatrix4fv(locplanDragage, 1, GL_FALSE, matrModel);
+			glUniformMatrix4fv(locmatrModel, 1, GL_FALSE, matrModel);
 			// afficher le quad:
 			glBindVertexArray(vao);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 			glBindVertexArray( 0 );
 			
-		}matrModel.PopMatrix(); glUniformMatrix4fv( locplanDragage, 1, GL_FALSE, matrModel );
+		}matrModel.PopMatrix(); 
+        glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
 			
-			 
+		
     }
 
     void afficherTousLesPoissons()
@@ -195,41 +201,69 @@ public:
         // activer les plans de coupe et afficher la scène normalement
         // partie 1: modifs ici ...
         glEnable(GL_CLIP_PLANE0);
-        //glEnable(GL_CLIP_PLANE1);
 
-        // afficher les poissons en plein
+        // affiche cote gauche plein
+        glEnable(GL_CLIP_PLANE1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         afficherTousLesPoissons();
-        // afficher les poissons en fil de fer (squelette)
-        glEnable(GL_STENCIL_TEST);
-        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-        
-        glEnable(GL_CULL_FACE);
-        glStencilFunc(GL_ALWAYS, 1, 1);
-        glDisable(GL_DEPTH_TEST);
-        
-        glEnable(GL_DEPTH_TEST);
-        glStencilOp( GL_KEEP,GL_KEEP,GL_KEEP);
-        glStencilFunc( GL_EQUAL, 1, 1 );
-        glCullFace(GL_FRONT);
-        glStencilOp( GL_KEEP,GL_DECR,GL_KEEP);
+
+         glDisable(GL_CLIP_PLANE1);
+
+
+        // affiche cote droit fil fer
+        glEnable(GL_CLIP_PLANE2);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         afficherTousLesPoissons();
-        glCullFace(GL_BACK);
-        glStencilOp( GL_KEEP,GL_INCR,GL_KEEP);
-        glStencilFunc( GL_EQUAL, 0, 1 );
-        glPolygonMode( GL_FRONT, GL_FILL);
-        afficherTousLesPoissons();
-        
-		
-		glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-        glEnable(GL_DEPTH_TEST);
-        glDisable(GL_CULL_FACE);
-        
-        
+        glDisable(GL_CLIP_PLANE2);
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //aquarium
         glDisable(GL_CLIP_PLANE0);
-        glDisable(GL_STENCIL_TEST);
+
+
+
+
+
+
+
+
+
+
+
+
+         //glEnable(GL_CLIP_PLANE2);
+        //glm::vec4 planD = Etat::planDragage; planD.x = -planD.x;
+       // glEnable(GL_STENCIL_TEST);
+       // glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+       // glDisable(GL_DEPTH_TEST);
+       // glEnable(GL_CULL_FACE);
+       // glStencilFunc(GL_ALWAYS, 1, 0xff);
+        //glCullFace(GL_FRONT); //on voit l'interieur
+        
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
+        //glStencilOp(GL_KEEP, GL_INCR, GL_INCR);
+       // glCullFace(GL_BACK); // on voit que l'Exterieur
+       // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        //afficherTousLesPoissons();
+       // glStencilOp(GL_KEEP, GL_DECR, GL_DECR);
+        //glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+       // glEnable(GL_DEPTH_TEST);
+        //glDisable(GL_CULL_FACE);
+        //glStencilFunc(GL_GREATER, 0, 0xff); // afficher pu les poissons
+        // afficher les poissons en plein
+       // afficherTousLesPoissons();
+        // afficher les poissons en fil de fer (squelette)
+       // afficherTousLesPoissons();
+       
+        //glDisable(GL_CLIP_PLANE1);
+        //afficherPlan(1.0);
+        //glDisable(GL_STENCIL_TEST);
         // « fermer » les poissons
         // partie 1: modifs ici ...
         // ...
+
+
+
+
     }
 
     // afficher le contenu de l'aquarium

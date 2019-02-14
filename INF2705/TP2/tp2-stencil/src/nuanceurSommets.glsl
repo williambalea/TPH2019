@@ -26,7 +26,8 @@ void main( void )
     gl_Position = matrProj * matrVisu * matrModel * Vertex;
     vec4 pos = matrModel * Vertex;
     gl_ClipDistance[0] = dot(planDragage, pos);
-    //gl_ClipDistance[1] = AttribsOut.clipDistanceRayonsX;
+    gl_ClipDistance[1] = dot(planRayonsX, pos);
+    gl_ClipDistance[2] = dot(-planRayonsX, pos);
 
     // couleur du sommet
     AttribsOut.couleur = Color;
