@@ -109,9 +109,12 @@ public:
 
         // partie 1: initialiser le VAO (pour le quad de l'aquarium)
 		glGenVertexArrays(1, &vao);
-        // partie 1: créer les deux VBO pour les sommets et la connectivité
-		glGenBuffers(2, vbo);
 		glBindVertexArray(vao);
+
+        // partie 1: créer les deux VBO pour les sommets et la connectivité
+
+
+		glGenBuffers(2, vbo);
 		// tracer le quad
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
 		glBufferData( GL_ARRAY_BUFFER, sizeof(coo), coo, GL_STATIC_DRAW );
@@ -119,8 +122,6 @@ public:
 		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbo[1] );
         glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof(connec), connec, GL_STATIC_DRAW );
         glEnableVertexAttribArray(locplanDragage);
-        
-        //glDepthFunc(GL_LESS);
         glBindVertexArray( 0 );
     }
     void conclureGraphique()
@@ -158,30 +159,19 @@ public:
         // afficher le plan mis à l'échelle, tourné selon l'angle courant et à la position courante
         // partie 1: modifs ici ...
         
-        /**
-        
-        **/
-        
         matrModel.PushMatrix(); {
-			 
-		glUniformMatrix4fv( locplanDragage, 1, GL_FALSE, matrModel);	
-		glBindVertexArray(vao);
-		// tracer le quad
-		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-		glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, vbo[1] );
-		glVertexAttribPointer( locplanDragage, 3, GL_FLOAT, GL_FALSE, 0, 0 );
-		glEnableVertexAttribArray(locplanDragage);
-		glDrawElements(GL_TRIANGLES, ((3+6)*3), GL_UNSIGNED_INT, 0);
-		glDisableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER,0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-        
-        
-     
-        glBindVertexArray( 0 );
-        //cube->afficher();
+			// transformations
+			matrModel.Translate(Etat::planDragage.x, Etat::planDragage.y, Etat::planDragage.w);
+			//matrModel.Rotate();
+			// avant de tracer, informer le gpu des chgmt fait à la matrice de modelisation
+			glUniformMatrix4fv(locplanDragage, 1, GL_FALSE, matrModel);
+			// afficher le quad:
+			glBindVertexArray(vao);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+			glBindVertexArray( 0 );
 			
-			}matrModel.PopMatrix(); glUniformMatrix4fv( locplanDragage, 1, GL_FALSE, matrModel );
+		}matrModel.PopMatrix(); glUniformMatrix4fv( locplanDragage, 1, GL_FALSE, matrModel );
+			
 			 
     }
 
