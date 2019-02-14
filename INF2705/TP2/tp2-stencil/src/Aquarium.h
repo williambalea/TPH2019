@@ -63,11 +63,11 @@ public:
             float taille = glm::mix( 0.5 , 0.9, rand()/((double)RAND_MAX) );
 
             // créer un nouveau poisson
-            Poisson *p = new Poisson( pos[i], vit, taille );
+            Poisson *p = new Poisson( pos[i], vit, taille, false, i/25 );
 
             // assigner une couleur de sélection
             // partie 2: modifs ici ...
-
+           
             // ajouter ce poisson dans la liste
             poissons.push_back( p );
         }
@@ -201,7 +201,7 @@ public:
         // activer les plans de coupe et afficher la scène normalement
         // partie 1: modifs ici ...
         glEnable(GL_CLIP_PLANE0);
-
+        
         // affiche cote gauche plein
         glEnable(GL_CLIP_PLANE1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -232,9 +232,10 @@ public:
         glDisable(GL_CULL_FACE);
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         glStencilFunc(GL_EQUAL, 1, 0xff);
+        glDisable(GL_CLIP_PLANE0);
         afficherPlan(1.0);
         glDisable(GL_STENCIL_TEST);
-        glDisable(GL_CLIP_PLANE0);
+        
 
     }
 
@@ -272,6 +273,22 @@ public:
     void selectionnerPoisson()
     {
         // partie 2: modifs ici ...
+         glFinish();
+        GLint cloture[4];
+        glGetIntegerv(GL_VIEWPORT, cloture);
+        GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]-Etat::sourisPosPrec.y;
+        glReadBuffer( GL_BACK );
+        GLubyte couleur[3];
+        glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
+        
+        for (unsigned int i = 0; i < poissons.size(); i++) {
+            if ( poissons.at(i)->valeurVerte == couleur[1]) {
+                poissons.at(i)->estSelectionne = !poissons.at(i)->estSelectionne;
+                break;
+            }
+
+        }
+        std::cout << "Couleur  = " << (int) couleur[0] << " " << (int) couleur[1] << " " << (int) couleur[2] << std::endl;
     }
 
     void calculerPhysique( )
@@ -282,7 +299,7 @@ public:
             {
                 (*it)->avancerPhysique();
             }
-#if 0
+#if 1
             // Quelques déplacements automatiques pour la démo :
             static int sens[6] = { +1, +1, +1, +1, +1, +1 };
             glm::vec3 vitesse( 0.03, 0.02, 0.05 );
@@ -310,6 +327,7 @@ public:
     GLint locplanDragage;
     GLint locplanRayonsX;
     GLint locattenuation;
+    GLfloat greenValue = 1.0;
 
     // la liste des poissons
     std::vector<Poisson*> poissons;

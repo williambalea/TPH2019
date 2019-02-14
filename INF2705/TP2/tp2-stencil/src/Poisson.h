@@ -8,8 +8,8 @@ class Poisson
 {
     static FormeCylindre *cylindre; // un cylindre centré dans l'axe des Z, de rayon 1, entre (0,0,0) et (0,0,1)
 public:
-    Poisson( glm::vec3 pos = glm::vec3(3.0,1.0,0.0), glm::vec3 vit = glm::vec3(1.0,0.0,0.0), float tai = 0.5 )
-        : position(pos), vitesse(vit), taille(tai)
+    Poisson( glm::vec3 pos = glm::vec3(3.0,1.0,0.0), glm::vec3 vit = glm::vec3(1.0,0.0,0.0), float tai = 0.5, bool estSelectionne_ = false, GLfloat valeurVerte_ = 0)
+        : position(pos), vitesse(vit), taille(tai), estSelectionne(estSelectionne_), valeurVerte(valeurVerte_)
     {
         // créer un poisson graphique
         initialiserGraphique();
@@ -27,15 +27,7 @@ public:
     {
         delete cylindre;
     }
-    void selectionne () {
-        glFinish();
-        GLint cloture[4];
-        glGetIntegerv(GL_VIEWPORT, cloture);
-        GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]-Etat::sourisPosPrec.y;
-        glReadBuffer( GL_BACK );
-        GLubyte couleur[3];
-        glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
-    }
+
     void afficher()
     {
         matrModel.PushMatrix();{ // sauvegarder la tranformation courante
@@ -45,16 +37,21 @@ public:
 
             // partie 2: modifs ici ...
             // donner la couleur de sélection
-            if(estSelectionne){
-                glFinish();
-                
-                GLint cloture[4]; glGetIntegerv(GL_VIEWPORT, cloture);
-                GLint posX = 
+            
+            if (Etat::modeSelection) {
+                // estSelectionne = true;
+                glm::vec3 coulCorps( 0.0, valeurVerte, 0.0 ); 
+                glVertexAttrib3fv( locColor, glm::value_ptr(coulCorps) );
             }
+            else {
+                // estSelectionne = false;
+                glm::vec3 coulCorps( 0.0, 1.0, 0.0 ); // vert
+                glVertexAttrib3fv( locColor, glm::value_ptr(coulCorps) );
+            }
+
             // afficher le corps
             // (en utilisant le cylindre centré dans l'axe des Z, de rayon 1, entre (0,0,0) et (0,0,1))
-            glm::vec3 coulCorps( 0.0, 1.0, 0.0 ); // vert
-            glVertexAttrib3fv( locColor, glm::value_ptr(coulCorps) );
+            
             matrModel.PushMatrix();{
                 matrModel.Scale( 5.0*taille, taille, taille );
                 matrModel.Rotate( 90.0, 0.0, 1.0, 0.0 );
@@ -96,7 +93,9 @@ public:
     glm::vec3 position;   // en unités
     glm::vec3 vitesse;    // en unités/seconde
     float taille;         // en unités
-    bool estSelectionne = false; 
+    bool estSelectionne;
+    GLfloat valeurVerte;
+    
 };
 
 FormeCylindre* Poisson::cylindre = NULL;
