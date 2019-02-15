@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iterator>
+#include <iomanip> // temporaire
 
 //
 // l'aquarium
@@ -63,7 +64,12 @@ public:
             float taille = glm::mix( 0.5 , 0.9, rand()/((double)RAND_MAX) );
 
             // créer un nouveau poisson
-            Poisson *p = new Poisson( pos[i], vit, taille, false, i/25 );
+            double valeurVerte = (1/2);
+            std::cout << std::fixed;
+            std::cout << std::setprecision(3);
+            std::cout << i << " " << 1/2 << std::endl;
+            Poisson *p = new Poisson( pos[i], vit, taille, false, 0.1 ); // nombre magique à redefinir
+            //std::cout << "poisson " << i << " valeurVerte : " << p->valeurVerte;
 
             // assigner une couleur de sélection
             // partie 2: modifs ici ...
@@ -273,18 +279,22 @@ public:
     void selectionnerPoisson()
     {
         // partie 2: modifs ici ...
-         glFinish();
+        glFinish();
         GLint cloture[4];
         glGetIntegerv(GL_VIEWPORT, cloture);
         GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]-Etat::sourisPosPrec.y;
+        std::cout << "posX = " << posX << std::endl
+                  << "posY = " << posY << std::endl;
         glReadBuffer( GL_BACK );
-        GLubyte couleur[3];
+        GLubyte couleur[3] = {0, 0, 0};
         glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
-        
+        std::cout << "apres ReadPixel: " << (float)couleur[0] << ", " << (float)couleur[1] << ", " << (float)couleur[2] << std::endl; 
         for (unsigned int i = 0; i < poissons.size(); i++) {
             if ( poissons.at(i)->valeurVerte == couleur[1]) {
                 poissons.at(i)->estSelectionne = !poissons.at(i)->estSelectionne;
+                std::cout << "on a selectionne le poisson #" << i << std::endl;
                 break;
+                
             }
 
         }
@@ -299,7 +309,7 @@ public:
             {
                 (*it)->avancerPhysique();
             }
-#if 1
+#if 0
             // Quelques déplacements automatiques pour la démo :
             static int sens[6] = { +1, +1, +1, +1, +1, +1 };
             glm::vec3 vitesse( 0.03, 0.02, 0.05 );

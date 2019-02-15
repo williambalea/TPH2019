@@ -8,7 +8,7 @@ class Poisson
 {
     static FormeCylindre *cylindre; // un cylindre centré dans l'axe des Z, de rayon 1, entre (0,0,0) et (0,0,1)
 public:
-    Poisson( glm::vec3 pos = glm::vec3(3.0,1.0,0.0), glm::vec3 vit = glm::vec3(1.0,0.0,0.0), float tai = 0.5, bool estSelectionne_ = false, GLfloat valeurVerte_ = 0)
+    Poisson( glm::vec3 pos = glm::vec3(3.0,1.0,0.0), glm::vec3 vit = glm::vec3(1.0,0.0,0.0), float tai = 0.5, bool estSelectionne_ = false, float valeurVerte_ = 0.0)
         : position(pos), vitesse(vit), taille(tai), estSelectionne(estSelectionne_), valeurVerte(valeurVerte_)
     {
         // créer un poisson graphique
@@ -94,7 +94,7 @@ public:
     glm::vec3 vitesse;    // en unités/seconde
     float taille;         // en unités
     bool estSelectionne;
-    GLfloat valeurVerte;
+    float valeurVerte;
     
 };
 
