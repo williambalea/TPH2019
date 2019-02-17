@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <iterator>
-#include <iomanip> // temporaire
 
 //
 // l'aquarium
@@ -64,12 +63,12 @@ public:
             float taille = glm::mix( 0.5 , 0.9, rand()/((double)RAND_MAX) );
 
             // créer un nouveau poisson
-            double valeurVerte = (1/2);
+            /*double valeurVerte = (1.0/2.0);
             std::cout << std::fixed;
             std::cout << std::setprecision(3);
-            std::cout << i << " " << 1/2 << std::endl;
-            Poisson *p = new Poisson( pos[i], vit, taille, false, 0.1 ); // nombre magique à redefinir
-            //std::cout << "poisson " << i << " valeurVerte : " << p->valeurVerte;
+            std::cout << i << " " << i/2.0 << std::endl;*/
+            Poisson *p = new Poisson( pos[i], vit, taille, false, i/25.0 ); 
+			//std::cout << "poisson " << i << " valeurVerte : " << p->valeurVerte << std::endl;;
 
             // assigner une couleur de sélection
             // partie 2: modifs ici ...
@@ -282,23 +281,17 @@ public:
         glFinish();
         GLint cloture[4];
         glGetIntegerv(GL_VIEWPORT, cloture);
-        GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]-Etat::sourisPosPrec.y;
-        std::cout << "posX = " << posX << std::endl
-                  << "posY = " << posY << std::endl;
+        GLint posX = Etat::sourisPosPrec.x, posY = cloture[3]*2-Etat::sourisPosPrec.y;
         glReadBuffer( GL_BACK );
         GLubyte couleur[3] = {0, 0, 0};
         glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
-        std::cout << "apres ReadPixel: " << (float)couleur[0] << ", " << (float)couleur[1] << ", " << (float)couleur[2] << std::endl; 
+		std::cout << "click : " << (float)couleur[0] << ", " << (float)couleur[1] << ", " << (float)couleur[2] << std::endl;
         for (unsigned int i = 0; i < poissons.size(); i++) {
-            if ( poissons.at(i)->valeurVerte == couleur[1]) {
+			if ( abs((poissons.at(i)->valeurVerte) - ((float)couleur[1]/255.0)) < 0.01) {
                 poissons.at(i)->estSelectionne = !poissons.at(i)->estSelectionne;
-                std::cout << "on a selectionne le poisson #" << i << std::endl;
                 break;
-                
             }
-
         }
-        std::cout << "Couleur  = " << (int) couleur[0] << " " << (int) couleur[1] << " " << (int) couleur[2] << std::endl;
     }
 
     void calculerPhysique( )

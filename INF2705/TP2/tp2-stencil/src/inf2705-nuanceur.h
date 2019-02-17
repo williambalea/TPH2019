@@ -180,4 +180,5 @@ const GLchar *ProgNuanceur::chainesFragmentsMinimal =
     "}\n"
 };
 
+
 #endif

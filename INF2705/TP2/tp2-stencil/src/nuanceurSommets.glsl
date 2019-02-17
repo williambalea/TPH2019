@@ -15,8 +15,9 @@ layout(location=3) in vec4 Color;
 
 out Attribs {
     vec4 couleur;
-    //float clipDistanceDragage;
-    //float clipDistanceRayonsX;
+    float clipDistanceDragage;
+    float clipDistanceRayonsX;
+
 } AttribsOut;
 
 void main( void )
@@ -25,15 +26,13 @@ void main( void )
 
     gl_Position = matrProj * matrVisu * matrModel * Vertex;
     vec4 pos = matrModel * Vertex;
-    gl_ClipDistance[0] = dot(planDragage, pos);
-    gl_ClipDistance[1] = dot(planRayonsX, pos);
-    gl_ClipDistance[2] = dot(-planRayonsX, pos);
+	AttribsOut.clipDistanceDragage = dot(planDragage, pos);
+	AttribsOut.clipDistanceRayonsX = dot(planRayonsX, pos);
+
 
     // couleur du sommet
+	
     AttribsOut.couleur = Color;
 
-    // Mettre un test bidon afin que l'optimisation du compilateur n'élimine l'attribut "planDragage".
-    // Mettre un test bidon afin que l'optimisation du compilateur n'élimine l'attribut "planRayonsX".
-    // Vous ENLEVEREZ ce test inutile!
-    if ( planDragage.x + planRayonsX.x < -10000.0 ) AttribsOut.couleur.r += 0.001;
+    
 }

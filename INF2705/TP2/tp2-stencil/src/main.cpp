@@ -76,8 +76,9 @@ void chargerNuanceurs()
             ProgNuanceur::afficherLogCompile( nuanceurObj );
             delete [] chainesSommets;
         }
-#if 0
+
         // partie 2: enlever le "#if 0" pour utiliser le nuanceur de géométrie
+#if 1
         const GLchar *chainesGeometrie = ProgNuanceur::lireNuanceur( "nuanceurGeometrie.glsl" );
         if ( chainesGeometrie != NULL )
         {
@@ -88,7 +89,7 @@ void chargerNuanceurs()
             ProgNuanceur::afficherLogCompile( nuanceurObj );
             delete [] chainesGeometrie;
         }
-#endif
+# endif
         // attacher le nuanceur de fragments
         const GLchar *chainesFragments = ProgNuanceur::lireNuanceur( "nuanceurFragments.glsl" );
         if ( chainesFragments != NULL )
@@ -179,7 +180,20 @@ void FenetreTP::afficherScene( )
 
 void FenetreTP::redimensionner( GLsizei w, GLsizei h )
 {
-    glViewport( 0, 0, w, h );
+	//glViewport(0, 0, w, h);
+
+	GLfloat h2 = 0.5*h;
+
+	glViewportIndexedf(0, 0, h2, w, h2);
+	//glScissorIndexed(0, 0, h2, w, h2);
+	glViewportIndexedf(1, 0, 0, w, h2);
+	//glScissorIndexed(0, 0, 0, w, h2);
+	//glEnable(GL_SCISSOR_TEST);
+	
+	//glViewport(0, h2, w, h2); // pour le viewport 0
+	//glViewportIndexedf(1, 0, 0, w, h2); // pour le viewport 1
+	//glScissorIndexed(1, 0, 0, w, h2);
+	//glEnable(GL_SCISSOR_TEST);
 }
 
 void FenetreTP::clavier( TP_touche touche )
