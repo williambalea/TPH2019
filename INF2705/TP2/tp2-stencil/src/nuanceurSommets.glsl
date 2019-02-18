@@ -29,10 +29,12 @@ void main( void )
 	AttribsOut.clipDistanceDragage = dot(planDragage, pos);
 	AttribsOut.clipDistanceRayonsX = dot(planRayonsX, pos);
 
-
+    
     // couleur du sommet
 	
     AttribsOut.couleur = Color;
-
+// la couleur du fragment est la couleur interpolée
+   AttribsOut.couleur = mix(Color, vec4(0.0, 0.0, 1.0, 0.8), Vertex.z); // -> couleur.w affecte juste les poissons
+   AttribsOut.couleur.g = Color.g;
     
 }

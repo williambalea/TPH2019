@@ -4,6 +4,9 @@ uniform int attenuation;
 const float debAttenuation = 30.0;
 const float finAttenuation = 50.0;
 
+
+//vec4 colorB = vec4();
+
 in Attribs {
     vec4 couleur;
 } AttribsIn;
@@ -12,18 +15,9 @@ out vec4 FragColor;
 
 void main( void )
 {
-    // la couleur du fragment est la couleur interpolée
-    //FragColor = mix(AttribsIn.couleur, vec4(0.0, 1.0, 1.0, 0.2), AttribsIn.couleur.w); // -> couleur.w affecte juste les poissons
-
-	//FragColor = vec4(vec3(AttribsIn.couleur.w), 1.0);
-
+    
+    // Donne les couleurs des poissons
 	FragColor = AttribsIn.couleur;
-	//FragColor = vec4(0.43, 0.65, 0.0, 1.0);
-	//FragColor = a;
-
-
-
-
 
     // atténuer selon la profondeur
     if ( attenuation == 1 )
