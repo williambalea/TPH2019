@@ -1,9 +1,13 @@
-Q1: Dans le nuanceur de sommets, si on souhaite calculer la profondeur du
+﻿Q1: Dans le nuanceur de sommets, si on souhaite calculer la profondeur du
     sommet dans le repère de la caméra, on peut utiliser cette formule :
 
     « out float profondeur = -( matrVisu * matrModel * Vertex ).z; »
 
     Pourquoi doit-on inverser le signe du résultat calculé ?
+
+
+selon le repère xyz de la caméra, l'axe positif des z, qui correspond à la profondeur, pointe à l'extérieur de l'écran.
+Donc, la distance calculée entre la caméra et les poissons est toujours négative. Pour remédier à ça on multiplie par -1.
 
 
 Q2: Lorsqu'on calcule la distance à la caméra pour faire un effet de
@@ -19,5 +23,13 @@ Q2: Lorsqu'on calcule la distance à la caméra pour faire un effet de
 
     Comment expliquez-vous les comportements observés dans un cas ou l'autre ?
     Quel est l'intérêt de ce comportement ?
+
+quand on remplace la distance par une ou l'autre des deux lignes proposées, l'atténuation ne fonctionne plus.
+gl_FragCoord.z contient la profondeur non linéaire de chacun des fragments.
+gl_FragCoord.w permet d'avoir la perspective avec un point de fuite. 
+En faisant gl_FragCoord.z / gl_FragCoord.w, on est capable d'avoir la profondeur des fragments de façon linéaire (par rapport à la caméra)
+afin d'appliquer l'ombre correctement sur les objets à l'écran. Sans la cordonnée w, la vue ne sera que de façon orthogonale (et
+non en perspective) et l'atténuation ne serait que blanche ou noire.
+
 
 
