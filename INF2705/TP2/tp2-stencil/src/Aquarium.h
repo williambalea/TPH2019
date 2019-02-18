@@ -101,6 +101,8 @@ public:
         if ( ( locplanDragage = glGetUniformLocation( prog, "planDragage" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de planDragage" << std::endl;
         if ( ( locplanRayonsX = glGetUniformLocation( prog, "planRayonsX" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de planRayonsX" << std::endl;
         if ( ( locattenuation = glGetUniformLocation( prog, "attenuation" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de attenuation" << std::endl;
+		if ( ( locSelection = glGetUniformLocation( prog, "estSelectionne" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de estSelectionne" << std::endl;
+
 
         // les valeurs à utiliser pour tracer le quad
         GLfloat coo[] = { -1,  1, 0,
@@ -266,6 +268,7 @@ public:
         glUniform4fv( locplanRayonsX, 1, glm::value_ptr(planR) );
 
         glUniform1i( locattenuation, Etat::attenuation );
+		glUniform1i(locSelection, Etat::modeSelection );
 
         // afficher les poissons
         afficherFaune();
@@ -285,7 +288,7 @@ public:
         glReadBuffer( GL_BACK );
         GLubyte couleur[3] = {0, 0, 0};
         glReadPixels( posX, posY, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, couleur );
-		std::cout << "click : " << (float)couleur[0] << ", " << (float)couleur[1] << ", " << (float)couleur[2] << std::endl;
+		//std::cout << "click : " << (float)couleur[0] << ", " << (float)couleur[1] << ", " << (float)couleur[2] << std::endl;
         for (unsigned int i = 0; i < poissons.size(); i++) {
 			if ( abs((poissons.at(i)->valeurVerte) - ((float)couleur[1]/255.0)) < 0.01) {
                 poissons.at(i)->estSelectionne = !poissons.at(i)->estSelectionne;
@@ -330,6 +333,7 @@ public:
     GLint locplanDragage;
     GLint locplanRayonsX;
     GLint locattenuation;
+	GLint locSelection;
     GLfloat greenValue = 1.0;
 
     // la liste des poissons

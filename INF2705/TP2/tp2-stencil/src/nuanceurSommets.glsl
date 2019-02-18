@@ -7,8 +7,9 @@ uniform mat4 matrModel;
 uniform mat4 matrVisu;
 uniform mat4 matrProj;
 
-uniform vec4 planDragage; // équation du plan de dragage
-uniform vec4 planRayonsX; // équation du plan de RayonsX
+uniform vec4 planDragage;  // équation du plan de dragage
+uniform vec4 planRayonsX;  // équation du plan de RayonsX
+uniform bool estSelectionne; // pour alterner entre degrade ou vert
 
 layout(location=0) in vec4 Vertex;
 layout(location=3) in vec4 Color;
@@ -31,10 +32,12 @@ void main( void )
 
     
     // couleur du sommet
-	
     AttribsOut.couleur = Color;
-// la couleur du fragment est la couleur interpolée
-   AttribsOut.couleur = mix(Color, vec4(0.0, 0.0, 1.0, 0.8), Vertex.z); // -> couleur.w affecte juste les poissons
-   AttribsOut.couleur.g = Color.g;
-    
+
+	// la couleur du fragment est la couleur interpolée
+	if (estSelectionne) {
+		AttribsOut.couleur = Color;
+	} else {
+		AttribsOut.couleur = mix(Color, vec4(0.0, 1.0, 1.0, 1.0), Vertex.z); 
+	}    
 }
