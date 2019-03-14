@@ -43,6 +43,9 @@ layout (std140) uniform varsUnif
     int afficheTexelFonce;    // un texel foncé doit-il être affiché 0:normalement, 1:mi-coloré, 2:transparent?
 };
 
+const int PHONG = 1;
+const int GOURAUD = 0;
+
 uniform mat4 matrModel;
 uniform mat4 matrVisu;
 uniform mat4 matrProj;
@@ -58,6 +61,8 @@ layout(location=8) in vec4 TexCoord;
 out Attribs {
     vec4 couleur;
     vec3 normale;
+    vec3 lumiere;
+    vec3 observateur;
 } AttribsOut;
 
 vec4 calculerReflexion( in vec3 L, in vec3 N, in vec3 O )
@@ -71,10 +76,33 @@ void main( void )
     // transformation standard du sommet
     gl_Position = matrProj * matrVisu * matrModel * Vertex;
 
-    // calculer la normale
-    AttribsOut.normale = matrNormale * Normal;
+    //repère de l'observateur
+    vec3 pos = vec3(matrVisu * matrModel * Vertex);
+
+     // calculer la normale
+    AttribsOut.normale = normalize(matrNormale * Normal);
+
+    // calculer la lumiere (mais il y a [3] positions...)
+    AttribsOut.lumiere = vec3( matrVisu * LightSource.position[0]) - pos;
+   // AttribsOut.lumiere = ( LightSource.position[1] - pos);
+    // AttribsOut.lumiere = ( LightSource.position[2] - pos);
+
+    // calculer position de l'observateur
+    AttribsOut.observateur = normalize(-pos);
+
+    // Vecteur vers la lumiere
+    vec3 L = (AttribsOut.lumiere);
+
+    // Vecteur normale
+    vec3 N =  (AttribsOut.normale);
+
+    //vecteur position de l'observateur
+    vec3 O = (AttribsOut.observateur);
 
     // couleur du sommet
-    //AttribsOut.couleur = calculerReflexion( L, N, O );
-    AttribsOut.couleur = Color; // à modifier!
+    if(typeIllumination == GOURAUD)
+        AttribsOut.couleur = calculerReflexion( L, N, O );
+    else
+         AttribsOut.couleur = Color; 
+
 }
