@@ -43,10 +43,6 @@ layout (std140) uniform varsUnif
     int afficheTexelFonce;    // un texel foncé doit-il être affiché 0:normalement, 1:mi-coloré, 2:transparent?
 };
 
-// variable pour le typeIllumination
-const int PHONG = 1;
-const int GOURAUD = 0;
-
 uniform sampler2D laTextureCoul;
 uniform sampler2D laTextureNorm;
 
@@ -54,38 +50,19 @@ uniform sampler2D laTextureNorm;
 
 in Attribs {
     vec4 couleur;
-    vec3 normale;
-    vec3 lumiere;
-    vec3 observateur;
+	vec3 normale, obsVec;
+	vec3 lumiDir[3];
 } AttribsIn;
 
 out vec4 FragColor;
 
 vec4 calculerReflexion( in vec3 L, in vec3 N, in vec3 O )
 {
-    vec4 grisUniforme = vec4(0.7,0.7,0.7,1.0);
+   vec4 grisUniforme = vec4(0.7,0.7,0.7,1.0);
     return( grisUniforme );
 }
 
 void main( void )
 {
-    vec4 couleur = (FrontMaterial.emission + FrontMaterial.ambient * LightModel.ambient) + LightSource.ambient *FrontMaterial.ambient;
-    if (typeIllumination == GOURAUD) 
-        FragColor = AttribsIn.couleur;
-    else
-        FragColor = couleur;
-
-    vec3 N = normalize(normale);
-    vec3 L = normalize(lumiere);
-    vec3 O = normalize(observateur);
-
-    // assigner la couleur finale
-    // FragColor = 0.01*AttribsIn.couleur + vec4( 0.5, 0.5, 0.5, 1.0 ); // gris moche!
-    vec4 coul = FrontMaterial.emission + FrontMaterial.ambient * LightModel.ambient;
-    //coul += FrontMaterial.ambient * LightSource.ambient;
-    FragColor = clamp(coul, 0.0, 1.0);
-    // vec4 coul = calculerReflexion( L, N, O );
-    // ...
-
-    //if ( afficheNormales ) FragColor = vec4(N,1.0);
+	FragColor = AttribsIn.couleur;
 }

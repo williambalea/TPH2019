@@ -1,7 +1,7 @@
 // Prénoms, noms et matricule des membres de l'équipe:
 // - Prénom1 NOM1 (matricule1)
 // - Prénom2 NOM2 (matricule2)
-#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
+//#warning "Écrire les prénoms, noms et matricule des membres de l'équipe dans le fichier et commenter cette ligne"
 
 #include <stdlib.h>
 #include <iostream>
@@ -195,7 +195,7 @@ void chargerNuanceurs()
         }
         if ( Etat::utiliseTess )
         {
-            // partie 4: À ACTIVER (touche '9')
+            // partie 3: À ACTIVER (touche '9')
             // attacher le nuanceur de controle de la tessellation
             const GLchar *chainesTessCtrl = ProgNuanceur::lireNuanceur( "nuanceurTessCtrl.glsl" );
             if ( chainesTessCtrl != NULL )
@@ -245,11 +245,11 @@ void chargerNuanceurs()
         if ( ( locmatrNormale = glGetUniformLocation( prog, "matrNormale" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de matrNormale (partie 1)" << std::endl;
         if ( ( loclaTextureCoul = glGetUniformLocation( prog, "laTextureCoul" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de laTextureCoul (partie 2)" << std::endl;
         if ( ( loclaTextureNorm = glGetUniformLocation( prog, "laTextureNorm" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de laTextureNorm (partie 4)" << std::endl;
-        // partie 4:
+        // partie 3:
         if ( Etat::utiliseTess )
         {
-            if ( ( locTessLevelInner = glGetUniformLocation( prog, "TessLevelInner" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de TessLevelInner (partie 4)" << std::endl;
-            if ( ( locTessLevelOuter = glGetUniformLocation( prog, "TessLevelOuter" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de TessLevelOuter (partie 4)" << std::endl;
+            if ( ( locTessLevelInner = glGetUniformLocation( prog, "TessLevelInner" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de TessLevelInner (partie 3)" << std::endl;
+            if ( ( locTessLevelOuter = glGetUniformLocation( prog, "TessLevelOuter" ) ) == -1 ) std::cerr << "!!! pas trouvé la \"Location\" de TessLevelOuter (partie 3)" << std::endl;
         }
         if ( ( indLightSource = glGetUniformBlockIndex( prog, "LightSourceParameters" ) ) == GL_INVALID_INDEX ) std::cerr << "!!! pas trouvé l'\"index\" de LightSource" << std::endl;
         if ( ( indFrontMaterial = glGetUniformBlockIndex( prog, "MaterialParameters" ) ) == GL_INVALID_INDEX ) std::cerr << "!!! pas trouvé l'\"index\" de FrontMaterial" << std::endl;
@@ -336,14 +336,14 @@ void FenetreTP::initialiser()
         -1.0, -1.0,  1.0,   -1.0,  1.0,  1.0,  -1.0, -1.0, -1.0,   -1.0,  1.0, -1.0,   // P4,P7,P0,P3
         -1.0, -1.0,  1.0,    1.0, -1.0,  1.0,  -1.0,  1.0,  1.0,    1.0,  1.0,  1.0    // P4,P5,P7,P6
     };
-    GLfloat normales[3*4*6] = {
-        0.0,  0.0, -1.0,     0.0,  0.0, -1.0,   0.0,  0.0, -1.0,    0.0,  0.0, -1.0,   // P3,P2,P0,P1
-        0.0, -1.0,  0.0,     0.0, -1.0,  0.0,   0.0, -1.0,  0.0,    0.0, -1.0,  0.0,   // P5,P4,P1,P0
-        1.0,  0.0,  0.0,     1.0,  0.0,  0.0,   1.0,  0.0,  0.0,    1.0,  0.0,  0.0,   // P6,P5,P2,P1
-        0.0,  1.0,  0.0,     0.0,  1.0,  0.0,   0.0,  1.0,  0.0,    0.0,  1.0,  0.0,   // P7,P6,P3,P2
-       -1.0,  0.0,  0.0,    -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,   -1.0,  0.0,  0.0,   // P4,P7,P0,P3
-        0.0,  0.0,  1.0,     0.0,  0.0,  1.0,   0.0,  0.0,  1.0,    0.0,  0.0,  1.0,    // P4,P5,P7,P6
-    };
+	GLfloat normales[3 * 4 * 6] = {
+		0.0,  0.0, -1.0,     0.0,  0.0, -1.0,   0.0,  0.0, -1.0,    0.0,  0.0, -1.0,   // P3,P2,P0,P1
+		0.0, -1.0,  0.0,     0.0, -1.0,  0.0,   0.0, -1.0,  0.0,    0.0, -1.0,  0.0,   // P5,P4,P1,P0
+		1.0,  0.0,  0.0,     1.0,  0.0,  0.0,   1.0,  0.0,  0.0,    1.0,  0.0,  0.0,   // P6,P5,P2,P1
+		0.0,  1.0,  0.0,     0.0,  1.0,  0.0,   0.0,  1.0,  0.0,    0.0,  1.0,  0.0,   // P7,P6,P3,P2
+	   -1.0,  0.0,  0.0,    -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,   -1.0,  0.0,  0.0,   // P4,P7,P0,P3
+		0.0,  0.0,  1.0,     0.0,  0.0,  1.0,   0.0,  0.0,  1.0,    0.0,  0.0,  1.0,    // P4,P5,P7,P6
+	};
 
     // allouer les objets OpenGL
     glGenVertexArrays( 2, vao );
@@ -357,10 +357,10 @@ void FenetreTP::initialiser()
     glVertexAttribPointer( locVertex, 3, GL_FLOAT, GL_FALSE, 0, 0 );
     glEnableVertexAttribArray(locVertex);
     // partie 1: charger le VBO pour les normales
-    glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(normales), normales, GL_STATIC_DRAW);
-    glVertexAttribPointer(locNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(locNormal);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(normales), normales, GL_STATIC_DRAW);
+	glVertexAttribPointer(locNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(locNormal);
     // partie 2: charger le VBO pour les coordonnées de texture
     // ...
 
@@ -412,9 +412,9 @@ void afficherModele()
 
         glUniformMatrix4fv( locmatrModel, 1, GL_FALSE, matrModel );
         // (partie 1: ne pas oublier de calculer et donner une matrice pour les transformations des normales)
-        glm::mat3 matrVM = glm::mat3(matrVisu.getMatr()* matrModel.getMatr());
-        glm::mat3 matrNormale = glm::inverse(matrVM);
-        glUniformMatrix3fv(locmatrNormale, 1, GL_TRUE, glm::value_ptr(matrNormale));
+		glm::mat3 matrVM = glm::mat3(matrVisu.getMatr()* matrModel.getMatr());
+		glm::mat3 matrNormale = glm::inverse(matrVM);
+		glUniformMatrix3fv(locmatrNormale, 1, GL_TRUE, glm::value_ptr(matrNormale));
 
         glPatchParameteri( GL_PATCH_VERTICES, 4 );
         switch ( Etat::modele )
@@ -425,7 +425,7 @@ void afficherModele()
             glBindVertexArray( vao[0] );
             if ( Etat::utiliseTess )
             {
-                // partie 4: afficher le cube avec des GL_PATCHES
+                // partie 3: afficher le cube avec des GL_PATCHES
             }
             else
             {
@@ -676,7 +676,7 @@ void FenetreTP::clavier( TP_touche touche )
 
     case TP_p: // Permuter lumière positionnelle ou directionnelle
         Etat::positionnelle = !Etat::positionnelle;
-        LightSource.position[0].w = LightSource.position[1].w = Etat::positionnelle ? 1.0 : 0.0;
+        LightSource.position[0].w = LightSource.position[1].w = LightSource.position[2].w = Etat::positionnelle ? 1.0 : 0.0;
         echoEtatsIllum( );
         break;
 

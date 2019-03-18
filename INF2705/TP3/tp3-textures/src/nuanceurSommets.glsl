@@ -43,9 +43,6 @@ layout (std140) uniform varsUnif
     int afficheTexelFonce;    // un texel foncé doit-il être affiché 0:normalement, 1:mi-coloré, 2:transparent?
 };
 
-const int PHONG = 1;
-const int GOURAUD = 0;
-
 uniform mat4 matrModel;
 uniform mat4 matrVisu;
 uniform mat4 matrProj;
@@ -60,15 +57,29 @@ layout(location=8) in vec4 TexCoord;
 
 out Attribs {
     vec4 couleur;
-    vec3 normale;
-    vec3 lumiere;
-    vec3 observateur;
+	vec3 normale, obsVec;
+	vec3 lumiDir[3];
 } AttribsOut;
 
 vec4 calculerReflexion( in vec3 L, in vec3 N, in vec3 O )
 {
-    vec4 grisUniforme = vec4(0.7,0.7,0.7,1.0);
-    return( grisUniforme );
+	// ajout de l'emission de l'ambiant du modele d'illumination
+	vec4 couleur = FrontMaterial.emission + FrontMaterial.ambient * LightModel.ambient;
+	
+	// calcul de la composante ambiante de la source de lumiere
+	couleur += FrontMaterial.ambient * LightSource.ambient;
+
+    // produit scalaire pour le calcul de la reflexion diffuse
+	float NdotL = max( 0.0, dot(N, L) );
+	
+	// calcul de la composante diffuse de la source de lumiere
+	couleur += FrontMaterial.diffuse * LightSource.diffuse * NdotL;
+	
+	// calcul de la composante speculaire selon Blinn ou Phong
+	float NdotHV = max ( 0.0, (utiliseBlinn) ? dot(normalize(L + O), N) : dot(reflect(-L, N), O));
+	couleur += FrontMaterial.specular * LightSource.specular * ((NdotHV == 0.0) ? 0.0 : pow(NdotHV, FrontMaterial.shininess));
+	
+	return couleur;
 }
 
 void main( void )
@@ -76,33 +87,26 @@ void main( void )
     // transformation standard du sommet
     gl_Position = matrProj * matrVisu * matrModel * Vertex;
 
-    //repère de l'observateur
-    vec3 pos = vec3(matrVisu * matrModel * Vertex);
+	// calculer la normale (N) pour fragment shader
+	AttribsOut.normale = matrNormale * Normal;
 
-     // calculer la normale
-    AttribsOut.normale = normalize(matrNormale * Normal);
+	// calculer la position (P) du sommet dans le repere de la camera
+	vec3 pos = (matrVisu * matrModel * Vertex).xyz;
 
-    // calculer la lumiere (mais il y a [3] positions...)
-    AttribsOut.lumiere = vec3( matrVisu * LightSource.position[0]) - pos;
-   // AttribsOut.lumiere = ( LightSource.position[1] - pos);
-    // AttribsOut.lumiere = ( LightSource.position[2] - pos);
+	// calculer vecteur de la direction (L) des trois sources de lumiere
+	for (int i = 0; i < 3; i++) {
+	if(LightSource.position[0].w > 0.0)
+		AttribsOut.lumiDir[i] = (matrVisu * LightSource.position[i] / LightSource.position[i].w).xyz - pos; 
+	else
+		AttribsOut.lumiDir[i] = (matrVisu * LightSource.position[i]).xyz; 
+	}
 
-    // calculer position de l'observateur
-    AttribsOut.observateur = normalize(-pos);
-
-    // Vecteur vers la lumiere
-    vec3 L = (AttribsOut.lumiere);
-
-    // Vecteur normale
-    vec3 N =  (AttribsOut.normale);
-
-    //vecteur position de l'observateur
-    vec3 O = (AttribsOut.observateur);
+	// calculer vecteur de la direction (O) vers l'observateur
+	AttribsOut.obsVec = (LightModel.localViewer ? normalize(-pos) : vec3(0.0, 0.0, 1.0) );
 
     // couleur du sommet
-    if(typeIllumination == GOURAUD)
-        AttribsOut.couleur = calculerReflexion( L, N, O );
-    else
-         AttribsOut.couleur = Color; 
-
+	for (int i = 0; i < 3; i++) {
+		AttribsOut.couleur += calculerReflexion(normalize(AttribsOut.lumiDir[i]), normalize(AttribsOut.normale), normalize(AttribsOut.obsVec));
+	}
+    //AttribsOut.couleur = Color; // à modifier!
 }
