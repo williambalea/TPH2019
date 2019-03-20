@@ -342,7 +342,34 @@ void FenetreTP::initialiser()
 		1.0,  0.0,  0.0,     1.0,  0.0,  0.0,   1.0,  0.0,  0.0,    1.0,  0.0,  0.0,   // P6,P5,P2,P1
 		0.0,  1.0,  0.0,     0.0,  1.0,  0.0,   0.0,  1.0,  0.0,    0.0,  1.0,  0.0,   // P7,P6,P3,P2
 	   -1.0,  0.0,  0.0,    -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,   -1.0,  0.0,  0.0,   // P4,P7,P0,P3
-		0.0,  0.0,  1.0,     0.0,  0.0,  1.0,   0.0,  0.0,  1.0,    0.0,  0.0,  1.0,    // P4,P5,P7,P6
+		0.0,  0.0,  1.0,     0.0,  0.0,  1.0,   0.0,  0.0,  1.0,    0.0,  0.0,  1.0,   // P4,P5,P7,P6
+	};
+
+	GLfloat textureDe[2 * 4 * 6] = {
+		1.0 / 3.0, 2.0 / 3.0,	2.0 / 3.0, 2.0 / 3.0,	1.0 / 3.0, 3.0 / 3.0,	2.0 / 3.0, 3.0 / 3.0, // 4
+		1.0 / 3.0, 2.0 / 3.0,	0.0 / 3.0, 2.0 / 3.0,	1.0 / 3.0, 1.0 / 3.0,	0.0 / 3.0, 1.0 / 3.0, // 2
+		2.0 / 3.0, 2.0 / 3.0,	2.0 / 3.0, 1.0 / 3.0,	3.0 / 3.0, 2.0 / 3.0,	3.0 / 3.0, 1.0 / 3.0, // 5
+		1.0 / 3.0, 1.0 / 3.0,	2.0 / 3.0, 1.0 / 3.0,	1.0 / 3.0, 2.0 / 3.0,	2.0 / 3.0, 2.0 / 3.0, // 1
+		2.0 / 3.0, 0.0 / 3.0,	2.0 / 3.0, 1.0 / 3.0,	1.0 / 3.0, 0.0 / 3.0,	1.0 / 3.0, 1.0 / 3.0, // 3
+		2.0 / 3.0, 0.0 / 3.0,	3.0 / 3.0, 0.0 / 3.0,	2.0 / 3.0, 1.0 / 3.0,	3.0 / 3.0, 1.0 / 3.0, // 6 ///reegoivoseifi sudfs
+	};
+
+	GLfloat textureEchec[2 * 4 * 6] = {
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+		0.0, 0.0,	0.0, 3.0,	3.0, 0.0,	3.0, 3.0,
+	};
+
+	GLfloat textureNormale[2 * 4 * 6] = {
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
+		0.0, 0.0,	0.0, 1.0,	1.0, 0.0,	1.0, 1.0,
 	};
 
     // allouer les objets OpenGL
@@ -362,8 +389,20 @@ void FenetreTP::initialiser()
 	glVertexAttribPointer(locNormal, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(locNormal);
     // partie 2: charger le VBO pour les coordonnées de texture
-    // ...
+    
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(textureDe), textureDe, GL_STATIC_DRAW);
 
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[3]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(textureEchec), textureEchec, GL_STATIC_DRAW);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo[4]);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(textureNormale), textureNormale, GL_STATIC_DRAW);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     // créer quelques autres formes
@@ -393,16 +432,41 @@ void FenetreTP::conclure()
 void afficherModele()
 {
     // partie 2: paramètres de texture
-    //glActiveTexture( GL_TEXTURE0 ); // l'unité de texture 0
-    //if ( varsUnif.numTexCoul )
-    //    glBindTexture( GL_TEXTURE_2D, texturesCoul[varsUnif.numTexCoul-1] );
-    //else
-    //    glBindTexture( GL_TEXTURE_2D, 0 );
-    //glActiveTexture( GL_TEXTURE1 ); // l'unité de texture 1
-    //if ( varsUnif.numTexNorm )
-    //    glBindTexture( GL_TEXTURE_2D, texturesNorm[varsUnif.numTexNorm-1] );
-    //else
-    //    glBindTexture( GL_TEXTURE_2D, 0 );
+    glActiveTexture( GL_TEXTURE0 ); // l'unité de texture 0
+	glBindVertexArray(vao[0]);
+	switch (varsUnif.numTexCoul) {
+	case 0:
+		glBindTexture(GL_TEXTURE_2D, 0);
+		break;
+	case 1:
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
+		//glVertexAttribPointer(locTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		//glEnableVertexAttribArray(locTexCoord);
+		glBindTexture(GL_TEXTURE_2D, texturesCoul[0]);
+		break;
+	case 2:
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[3]);
+		//glVertexAttribPointer(locTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		//glEnableVertexAttribArray(locTexCoord);
+		glBindTexture(GL_TEXTURE_2D, texturesCoul[1]);
+		break;
+	default:
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[4]);
+		//glVertexAttribPointer(locTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+		//glEnableVertexAttribArray(locTexCoord);
+		glBindTexture(GL_TEXTURE_2D, texturesCoul[varsUnif.numTexCoul - 1]);
+		break;
+	}
+	glVertexAttribPointer(locTexCoord, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(locTexCoord);
+     
+	
+	
+	glActiveTexture( GL_TEXTURE1 ); // l'unité de texture 1
+    if ( varsUnif.numTexNorm )
+        glBindTexture( GL_TEXTURE_2D, texturesNorm[varsUnif.numTexNorm-1] );
+    else
+        glBindTexture( GL_TEXTURE_2D, 0 );
 
     // Dessiner le modèle
     matrModel.PushMatrix(); {
@@ -781,6 +845,7 @@ void FenetreTP::clavier( TP_touche touche )
         varsUnif.utiliseCouleur = false;
         break;
 
+	case TP_a:
     case TP_BARREOBLIQUE: // Permuter la projection: perspective ou orthogonale
         Etat::enPerspective = !Etat::enPerspective;
         break;
