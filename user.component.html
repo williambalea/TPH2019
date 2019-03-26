@@ -1,0 +1,38 @@
+<div>
+    <button mat-raised-button routerLink="/admin" id="adminButton">Admin</button>
+</div>
+
+<div class="mat-display-1" style="text-align:center; padding-top: 7%;">
+    <h1>
+        Bienvenue au Jeux des 7 différences!
+    </h1>
+    <img src="../../assets/logo.png">
+</div>
+<mat-card class="main-card">
+    <div class="mat-body" style="text-align:center">
+        <div>
+            <form [formGroup] = "requiredForm">
+                <h2>Entrez votre nom :</h2> <br />
+                <input [(ngModel)]="userName" (keyup)="updateUserNameValidators()" type="text" formControlName="username"  minlength="4" maxlength ="12" [pattern]="'^[a-zA-Z0-9 \'\-]+$'" required/>       
+                <button id="button" [disabled]="!enable" (click)= "submit()"> Entrer </button>
+                <div *ngFor="let validation of validationMessages.username">
+                    <span class="error-message caption" 
+                    *ngIf="requiredForm.get('username').hasError(validation.type)
+                    && (requiredForm.get('username').dirty 
+                    || requiredForm.get('username').touched)">
+                    
+                    {{validation.message}}
+                    </span>
+                </div>
+            </form>
+    
+            <br/>
+            <br/>
+            <span class="mat-body">Liste des utilisateurs connectés:</span>
+                <li class="mat-body" *ngFor="let user of users">
+                    {{user}}
+                </li>
+        </div>
+    </div>
+</mat-card>
+

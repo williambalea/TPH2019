@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <title>Chatroom equipe 214</title>
+    <style>
+        #messages{height:300px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-sm-12">
+                <h1 class="text-center">
+                    Chatroom equipe 214
+                </h1>
+                    <div id="status"></div>
+                        <div class="chat">
+                        <br>
+                            <div class="card">
+                                    <div class="chat-history">
+                                         <div id="messages" class="card-block">
+
+                                            <div *ngFor="let message of messageService.messages">
+                                                {{message}} 
+                        
+                                            </div>  
+                                    </div>
+                                </div>
+                             </div>
+                        <br>
+                            <input type="text"  [(ngModel)]="message" formControName="message" placeholder="Enter message..." autofocus>
+                            <button class="btn btn-danger" (click)="messageService.send(message)">Send</button>                   
+                        </div>
+            </div>
+        </div>
+    </div>     
+</body>
