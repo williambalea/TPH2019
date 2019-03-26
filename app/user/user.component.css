@@ -1,0 +1,22 @@
+.header {
+    text-align:center;
+}
+
+.error-message {
+    color: red;
+}
+
+.main-card {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(92, 92, 92, 0.274);
+}
+
+#adminButton {
+    position: absolute;
+    right: 200px;
+    text-align: center;
+    background-color: rgba(165, 165, 165, 0.671);
+    top: 50px;
+}

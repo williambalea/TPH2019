@@ -1,0 +1,101 @@
+<div class="header">
+    <h2 mat-dialog-title class="title">Créer un jeu point de vue libre</h2>
+    <div>Format d'image : bitmap 24-bit (640x480)</div>
+</div>
+<mat-divider style="padding:16px;"></mat-divider>
+
+<form [formGroup]="requiredForm" >
+  <div>
+    <mat-form-field>
+      <div class="form-element">Nom du jeu</div>
+      <input matInput [(ngModel)]="gameName" (keyup)="checkButton()" type="text" formControlName="gameName" required/>       
+    </mat-form-field>
+
+    <div *ngFor="let validation of validationMessages.gameName">
+      <span class="error-message" 
+      *ngIf="requiredForm.get('gameName').hasError(validation.type)
+      && (requiredForm.get('gameName').dirty 
+      || requiredForm.get('gameName').touched)">
+      {{validation.message}}
+      </span> 
+    </div>
+    
+  </div>
+
+  <div></div>
+
+  <div class="form-group">
+
+    <mat-form-field>
+      <div for="objectType" class="form-element">Type d'objets</div>
+      <mat-select [(value)]="gameTypeSelected" id="objectType" name="objectType" class="form-control" (change)="checkButton()" formControlName="objectType" required>
+        <mat-option value="" disabled="disabled"></mat-option>
+        <mat-option value="Formes géométriques">Formes géométriques</mat-option>
+        <mat-option value="Thématique">Thématique</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngFor="let validation of validationMessages.objectType">
+        <span class="error-message" 
+            *ngIf="requiredForm.get('objectType').hasError(validation.type)
+            && (requiredForm.get('objectType').dirty 
+            || requiredForm.get('objectType').touched)">
+            {{validation.message}}
+        </span> 
+    </div>
+    
+  </div>
+
+  <div>
+    <mat-form-field>
+      <div class="form-element">Quantité d'objets</div>
+      <input matInput [(ngModel)]="numberOfObjects" formControlName="quantity" maxlength ="3" (keyup)="checkButton()" >
+      <mat-hint>Min 10 ; Max 200</mat-hint> 
+    </mat-form-field>
+    <div *ngFor="let validation of validationMessages.quantity">
+        <span class="error-message" 
+           *ngIf="requiredForm.get('quantity').hasError(validation.type)
+            && (requiredForm.get('quantity').dirty 
+           || requiredForm.get('quantity').touched)">
+           {{validation.message}}
+        </span> 
+       </div>
+  </div>
+
+  <div class="card">
+    <mat-card>
+
+      <div class="form-element">Type de modifications</div>
+
+      <div>
+        <mat-checkbox [(ngModel)]="canAdd" value="1" (change)="checkButton()" formControlName="modificationType" required>Ajout</mat-checkbox>
+      </div>
+
+      <div>
+        <mat-checkbox [(ngModel)]="canDelete" value="2" (change)="checkButton()" formControlName="modificationType" required>Supression</mat-checkbox>
+      </div>
+
+      <div>
+        <mat-checkbox [(ngModel)]="canModifyColor" value="3" (change)="checkButton()" formControlName="modificationType" required>Modification de couleur</mat-checkbox>
+      </div>
+
+    </mat-card>
+
+    <div *ngFor="let validation of validationMessages.modificationType">
+        <span class="error-message" 
+           *ngIf="requiredForm.get('modificationType').hasError(validation.type)
+            && (requiredForm.get('modificationType').dirty 
+           || requiredForm.get('modificationType').touched)">
+           {{validation.message}}
+        </span> 
+    </div>
+
+  </div>
+
+</form>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button" (click)="submit($event)" [disabled]="!enable">Submit</button>
+    <button class="mat-raised-button" (click)="close($event)">Close</button>
+</mat-dialog-actions>
+

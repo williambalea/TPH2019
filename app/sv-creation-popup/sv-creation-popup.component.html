@@ -1,0 +1,84 @@
+<div class="header">
+    <h2 mat-dialog-title class="title">Créer un jeu point de vue simple</h2>
+    <div>Format d'image : bitmap 24-bit (640x480)</div>
+</div>
+<mat-divider></mat-divider>
+
+<form [formGroup]="requiredForm" >
+  <div>
+
+    <mat-form-field>
+      <div class="form-element">
+          Nom du jeu
+      </div>
+      <input matInput [(ngModel)]="gameName" (change)="getName($event)" (keyup)="checkButton()" type="text" formControlName="gameName" required/>
+    </mat-form-field>
+     
+    <div *ngFor="let validation of validationMessages.gameName">
+      <span class="error-message" 
+      *ngIf="requiredForm.get('gameName').hasError(validation.type)
+      && (requiredForm.get('gameName').dirty 
+      || requiredForm.get('gameName').touched)">
+      {{validation.message}}
+      </span> 
+    </div>
+
+  </div>
+
+  <div>
+    <mat-form-field>
+      <div class="form-element">
+        Image originale
+      </div>
+	    <input matInput [hidden]="true">
+      <input type="file" formControlName="unchangedImage"  accept="image/bmp" (change)="getOriginalFile($event)" class="unchangedImage-input"  required/>
+    </mat-form-field>
+
+    <p *ngIf="uploadUnchanged" class="success-message">
+      Largeur: {{unchangedWidth}} <br>
+      Hauteur: {{unchangedHeight}} <br>
+      Taille: {{unchangedImgSize}} octets <br>
+    </p> 
+    
+    <div *ngFor="let validation of validationMessages.unchangedImage">
+      <span class="error-message" 
+        *ngIf="requiredForm.get('unchangedImage').hasError(validation.type)
+        && (requiredForm.get('unchangedImage').dirty 
+        || requiredForm.get('unchangedImage').touched)">
+        {{validation.message}}
+      </span>
+    </div>
+    
+  </div>
+
+  <div>
+    <mat-form-field>
+      <div class="form-element">
+        Image modifiée
+      </div>
+      <input matInput [hidden]="true">
+      <input type="file" formControlName="changedImage"    accept="image/bmp"  (change)="getModifiedFile($event)" class="changedImage-input"  required/>
+    </mat-form-field>
+    
+		<p *ngIf="uploadChanged" class="success-message">
+      Largeur: {{changedWidth}} <br>
+      Hauteur: {{changedHeight}} <br>
+      Taille: {{changedImgSize}} octets <br>
+		</p> 
+ 
+    <div *ngFor="let validation of validationMessages.changedImage">
+      <span class="error-message" 
+        *ngIf="requiredForm.get('changedImage').hasError(validation.type)
+        && (requiredForm.get('changedImage').dirty 
+        || requiredForm.get('changedImage').touched)">
+        {{validation.message}}
+      </span> 
+    </div>
+
+  </div>
+</form>
+
+<mat-dialog-actions>
+  <button class="mat-raised-button" (click) = "submit($event)" [disabled]="!enable"> Submit </button>
+  <button class="mat-raised-button" (click)="close($event)">Close</button>
+</mat-dialog-actions>

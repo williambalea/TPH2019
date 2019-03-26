@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <title>Chatroom equipe 214</title>
+    <style>
+        #messages{height:300px;}
+    </style>
+</head>
+
+<div id="header">
+  <div class="columnHeader">
+    <mat-card class="info" id="compteur1">
+      <p class="text">compteur de differences : {{nbDiff}}</p>
+    </mat-card>
+  </div>
+  <div class="columnHeader">
+    <mat-card class="info" id="clock">
+      <p class="text">{{minutes}}:{{seconds}}</p>
+    </mat-card>
+  </div>
+  <div class="columnHeader" id="player2Compteur">
+    <mat-card *ngIf="router.url === '/vueJeuSimpleDuo'" class="info" id="compteur2">
+      <p class="text">compteur de differences : {{nbDiff2}}</p>
+    </mat-card>
+  </div>
+</div>
+
+<div #clickZone id="middle">
+  <mat-card id="images">
+    <img src={{game.image}} class="vignette" (click)="clickImage($event)" type=".bmp">
+    <img src={{game.modifiedImage}}  id="modImage" class="vignette" (click)="clickImage($event)" type=".bmp">
+  </mat-card>
+</div>
+
+<div id="bottom">
+  <app-messages></app-messages>
+</div>
+<div #errorClick id = error-box >
+  <h4>ERREUR</h4>
+</div>
+  

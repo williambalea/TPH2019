@@ -1,0 +1,30 @@
+.header {
+    margin: 24px;
+}
+
+.title {
+    font-size: 26pt;
+    font-weight: bold;
+}
+
+.form {
+    margin-left: 24px;
+}
+
+.error-message {
+    color: crimson;
+}
+
+.form-element {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    padding-bottom: 12px;
+    font-weight: bold;
+}
+
+.card {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+

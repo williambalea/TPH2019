@@ -1,0 +1,73 @@
+<!--header-->
+<div class="mat-display-1" style="padding-top:7%;">
+  Liste des parties
+  <button mat-raised-button routerLink="/admin" id="adminButton">Admin</button>
+</div>
+<mat-divider></mat-divider>
+<!--TEST-->
+<!--column-->
+<div *ngFor='let gameMode of games' class="column">
+  <span *ngFor='let game of gameMode' class="row">
+    <!--Game Card-->
+    <mat-card class="gameCard">
+
+      <mat-card-header class="gameTitle">
+        <h1>{{game.name}}</h1>
+      </mat-card-header>
+      
+      <mat-card-content >
+        <img src={{game.image}} class="vignette">
+      </mat-card-content>
+
+      <mat-card class="scoreBoardLeft">
+
+        <mat-card-title>
+          Scores Solo
+        </mat-card-title>
+
+        <mat-card-content class="scoreText">
+          <li class="scoreFirst">top 1: {{game.bestTimeSolo[0][0]}}:{{displayNumber(game.bestTimeSolo[0][1])}} {{game.bestTimeSolo[0][2]}}</li>
+          <li class="scoreSecond">top 2: {{game.bestTimeSolo[1][0]}}:{{displayNumber(game.bestTimeSolo[1][1])}}  {{game.bestTimeSolo[1][2]}}</li>
+          <li class="scoreThird">top 3: {{game.bestTimeSolo[2][0]}}:{{displayNumber(game.bestTimeSolo[2][1])}} {{game.bestTimeSolo[2][2]}}</li>
+        </mat-card-content>
+
+      </mat-card>
+
+      <mat-card class="scoreBoardRight">
+
+          <mat-card-title>
+            Scores 1v1
+          </mat-card-title>
+
+          <mat-card-content class="scoreText">
+            <li class="scoreFirst">top 1: {{game.bestTime1v1[0][0]}}:{{displayNumber(game.bestTime1v1[0][1])}} {{game.bestTime1v1[0][2]}}</li>
+            <li class="scoreSecond">top 2: {{game.bestTime1v1[1][0]}}:{{displayNumber(game.bestTime1v1[1][1])}} {{game.bestTime1v1[1][2]}}</li>
+            <li class="scoreThird">top 3: {{game.bestTime1v1[2][0]}}:{{displayNumber(game.bestTime1v1[2][1])}} {{game.bestTime1v1[2][2]}}</li>
+          </mat-card-content>  
+
+      </mat-card>
+      
+      <mat-card-actions class="cardButtons">
+        
+        <!--Boutons en game-mode
+        <button *ngIf="router.url === '/game-modes' && typeof game === typeof Game3DGeo" style="margin-right:5%;"
+          type="button" (click)="setSelectedGame(game)" onclick="window.location.href ='/scene3d' ">
+        </button>
+        -->
+
+        <!--Boutons en game-mode-->
+        <button *ngIf="router.url === '/game-modes'" style="margin-right:5%;" 
+          type="button" (click)="setSelectedGame(game, 0);" >jouer</button>
+        <button *ngIf="router.url === '/game-modes'" style="margin-left:5%;" 
+          type="button" (click)="setSelectedGame(game, 1);">creer</button>
+
+        <!--Boutons en admin-->
+        <button [(ngModel)]="game" *ngIf="router.url === '/admin'" style="margin-right:5%;"
+          type="button"  (click)="deleteCard(game)" name="fieldName" ngDefaultControl>supprimer</button>
+        <button [(ngModel)]="game" *ngIf="router.url === '/admin'"  style="margin-left:5%;" 
+          type="button" (click)="resetScores(game)" name="fieldName" ngDefaultControl>réinitialiser.</button>
+
+      </mat-card-actions>
+    </mat-card>
+  </span>
+</div>

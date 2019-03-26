@@ -1,0 +1,90 @@
+#adminButton {
+    position: absolute;
+    right: 200px;
+    text-align: center;
+    background-color: rgba(165, 165, 165, 0.671);
+}
+
+.mat-display-1 {
+    text-align:center;
+}
+
+.header {
+    text-align:center;
+    padding-top:32px;
+}
+
+.gameCard {
+    float:left, top;
+    margin-bottom: 10%;
+    margin-left: 20%;
+    margin-right: 0%;
+    min-width: 640px;
+    max-width: 640px;
+    min-height: 700px;
+    max-height: 700px;
+    background-color: rgb(119, 119, 119);
+}
+
+.gameTitle {
+    text-align: center;
+    margin-left: 6%;
+}
+
+.row {
+    min-height: 1000px;
+    margin: 20%;
+}
+
+.column {
+    min-height: 1000px;
+    float:left;
+    min-width: 50%;
+    max-width: 50%;
+}
+
+.scoreBoardLeft {
+    min-width: 40%;
+    max-width: 40%;
+    text-align: center;
+    float: left;
+    margin-bottom: 20px;
+    background-color: rgba(175, 175, 175, 0.781);
+}
+
+.scoreBoardRight {
+    min-width: 40%;
+    max-width: 40%;
+    text-align: center;
+    float: right;
+    margin-bottom: 20px;
+    background-color: rgba(175, 175, 175, 0.781);
+}
+
+.vignette {
+    max-width: 640px;
+    min-width: 640px;
+    max-height: 80%;
+}
+
+.cardButtons {
+    text-align: center;
+    align-content: center;
+}
+
+.scoreText {
+    text-align: left;
+    font-size: 12pt;
+}
+
+.scoreFirst {
+    color: rgb(99, 238, 64);
+}
+
+.scoreSecond {
+    color: rgb(186, 238, 64);
+}
+
+.scoreThird {
+    color: rgb(238, 221, 64);
+}

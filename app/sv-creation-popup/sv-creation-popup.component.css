@@ -1,0 +1,28 @@
+.header {
+    margin: 24px;
+}
+
+.title {
+    font-size: 26pt;
+    font-weight: bold;
+}
+
+.form {
+    margin-left: 24px;
+}
+
+.form-element {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    padding-bottom: 12px;
+    font-weight: bold;
+}
+
+.error-message {
+    color: crimson;
+}
+
+.success-message {
+    font-size: 10pt;
+}
