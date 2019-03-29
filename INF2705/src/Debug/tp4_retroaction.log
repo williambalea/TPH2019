@@ -1,0 +1,92 @@
+﻿  main.cpp
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(70): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(71): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(305): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(305): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(360): warning C4838: conversion from 'double' to 'GLfloat' requires a narrowing conversion
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(360): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(444): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(444): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(593): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(594): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(595): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(596): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(721): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(722): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(723): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(724): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(725): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(726): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(831): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(831): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(832): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(832): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(845): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(846): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(854): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(858): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(863): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(873): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(877): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(881): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(888): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(889): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(893): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(897): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(971): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(971): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(972): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(972): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(988): warning C4244: 'initializing': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(990): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(990): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(994): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(994): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1075): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1075): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1076): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1076): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1079): warning C4244: 'initializing': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1085): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1088): warning C4244: '=': conversion from 'const GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1089): warning C4244: '=': conversion from 'const GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1089): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1092): warning C4244: '+=': conversion from 'const GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1094): warning C4244: '+=': conversion from 'const GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1105): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1108): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1108): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1111): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1114): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1117): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1117): warning C4244: '=': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1188): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1188): warning C4244: 'initializing': conversion from 'double' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1189): warning C4244: 'initializing': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1189): warning C4244: 'initializing': conversion from 'GLdouble' to 'const GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1193): warning C4244: 'initializing': conversion from 'GLdouble' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1199): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1202): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\inf2705-forme.h(1203): warning C4244: '=': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\etat.h(23): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(54): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(352): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(452): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(457): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(513): warning C4305: 'argument': truncation from 'double' to 'const GLfloat'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(587): warning C4244: '*=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(601): warning C4244: '/=': conversion from 'double' to 'unsigned int', possible loss of data
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(607): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(611): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(616): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(620): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(625): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(629): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(653): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(657): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(663): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(667): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(673): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\dalyn\desktop\tp4-retroaction\src\main.cpp(677): warning C4305: '-=': truncation from 'double' to 'float'
+  tp4_retroaction.vcxproj -> C:\Users\dalyn\Desktop\tp4-retroaction\Debug\tp4_retroaction.exe
