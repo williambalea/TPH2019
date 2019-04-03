@@ -348,9 +348,14 @@ void chargerNuanceurs()
 
 void FenetreTP::initialiser()
 {
+
 	// donner la couleur de fond
 	glClearColor(0.3, 0.3, 0.3, 1.0);
 
+    // will
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
 	// activer les états openGL
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_PROGRAM_POINT_SIZE);

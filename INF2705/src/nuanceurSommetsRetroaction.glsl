@@ -42,16 +42,16 @@ void main( void )
         //vitesseMod = vec3( -0.8, 0., 0.6 );
 
         // nouveau temps de vie
-        tempsDeVieRestantMod = mod(myrandom(seed++), tempsDeVieMax); // entre 0 et tempsDeVieMax secondes
+        tempsDeVieRestantMod = myrandom(seed++) * tempsDeVieMax; // entre 0 et tempsDeVieMax secondes
         //tempsDeVieRestantMod = 0.0; // à modifier
 
         // interpolation linéaire entre COULMIN et COULMAX
         const float COULMIN = 0.2; // valeur minimale d'une composante de couleur lorsque la particule (re)naît
         const float COULMAX = 0.9; // valeur maximale d'une composante de couleur lorsque la particule (re)naît
-        // couleurMod = vec4(COULMAX); // + (mod(myrandom(seed++), COULMAX - COULMIN + 1));
+        
 		couleurMod = vec4(COULMIN + (COULMAX - COULMIN) * myrandom(seed++),
-		COULMIN + (COULMAX - COULMIN) * myrandom(seed++),
-		COULMIN + (COULMAX - COULMIN) * myrandom(seed++), 1);
+		                  COULMIN + (COULMAX - COULMIN) * myrandom(seed++),
+		                  COULMIN + (COULMAX - COULMIN) * myrandom(seed++), 1);
     }
     else
     {
@@ -60,7 +60,7 @@ void main( void )
         vitesseMod = vitesse;
 
         // diminuer son temps de vie
-        tempsDeVieRestantMod = tempsDeVieRestant;
+        tempsDeVieRestantMod = tempsDeVieRestant - dt;
 
         // garder la couleur courante
         couleurMod = couleur;
@@ -81,7 +81,7 @@ void main( void )
         // collision avec le sol ?
         if ( positionMod.z <= 0.0 ) {
 			positionMod.z = 0.0;
-			vitesseMod.z *= -1;
+            vitesseMod = vec3(0.0);
 		}
         // appliquer la gravité
         vitesseMod.z -= gravite * dt;
